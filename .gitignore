@@ -1,1 +1,11 @@
-"data/raw/" 
+.venv/
+data/raw/
+data/clean/
+data/processed/
+outputs/analysis/significant_gaps_model_A.csv
+outputs/analysis/significant_gaps_model_B.csv
+.matplotlib_cache/
+__pycache__/
+.ipynb_checkpoints/
+*.zip
+!app/data/*.csv
