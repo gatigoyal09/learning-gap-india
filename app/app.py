@@ -7,7 +7,7 @@ import streamlit as st
 
 # Configure page
 st.set_page_config(
-    page_title="The Learning Gap in India",
+    page_title="The Learning Gap in India: District Learning Outcomes and Household Conditions",
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -93,7 +93,7 @@ st.sidebar.caption("Data sources: NAS 2021 & NFHS-5 (2019-21)")
 # PAGE 1: OVERVIEW
 # -------------------------------------------------------------------------------------------------
 if page == "Overview":
-    st.markdown('<div class="main-title">The Learning Gap in India</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">The Learning Gap in India: District Learning Outcomes and Household Conditions</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sub-title">An empirical investigation reconciling National Achievement Survey (NAS 2021) '
         'learning outcomes with National Family Health Survey (NFHS-5) socio-economic indicators across Indian districts.</div>',
@@ -524,6 +524,66 @@ elif page == "Models":
 elif page == "Method & Limitations":
     st.title("Methodology & Analytical Limitations")
 
+    # Planned vs delivered
+    st.subheader("Planned vs delivered")
+    df_planned = pd.DataFrame(
+        [
+            {
+                "Item": "Educational resources",
+                "Originally planned": "School resource indicators from UDISE+",
+                "What was done": "District-level UDISE+ data was not available in usable form, so NFHS-5 household indicators were used instead",
+            },
+            {
+                "Item": "Research question",
+                "Originally planned": "How efficiently districts convert resources into learning",
+                "What was done": "How district learning compares with what household conditions predict (above or below predicted)",
+            },
+            {
+                "Item": "Multilevel modelling",
+                "Originally planned": "Districts nested within states",
+                "What was done": "State fixed effects with state-clustered standard errors, plus a between/within-state variance decomposition",
+            },
+            {
+                "Item": "Inequality decomposition",
+                "Originally planned": "Gini/Theil",
+                "What was done": "Between-state vs within-state variance decomposition (55% / 45%)",
+            },
+            {
+                "Item": "DEA / SFA",
+                "Originally planned": "Frontier efficiency models",
+                "What was done": "Not applicable: they need school inputs, which were not available",
+            },
+            {
+                "Item": "Spatial analysis",
+                "Originally planned": "Moran's I and spatial regression",
+                "What was done": "Not done (future work); state-level clustering of residuals is shown, but no spatial test was run",
+            },
+            {
+                "Item": "Map page",
+                "Originally planned": "India district map",
+                "What was done": "Not built (future work)",
+            },
+            {
+                "Item": "Dashboard",
+                "Originally planned": "8 pages",
+                "What was done": "5 pages",
+            },
+        ]
+    )
+    st.dataframe(df_planned, use_container_width=True, hide_index=True)
+    st.markdown("The scope was narrowed deliberately to methods that the available data can support.")
+
+    st.markdown("#### Why some planned methods were not used")
+    st.markdown(
+        """
+        - DEA and SFA estimate efficiency from school inputs (resources) and outputs. Without district-level school input data they cannot be applied.
+        - Moran's I requires district boundary files matched to the 683 analysed districts. This is a separate matching task and is listed as future work. Residuals do cluster by state (for example Punjab and Rajasthan above prediction, Tamil Nadu and Meghalaya below), but no spatial test was performed.
+        - An India district map needs the same boundary matching and is listed as the next step.
+        """
+    )
+
+    st.markdown("---")
+
     # 1. Pipeline Steps
     st.subheader("1. Data Pipeline Steps")
     st.markdown(
@@ -568,7 +628,7 @@ elif page == "Method & Limitations":
         ("Karnataka", "Tumakuru Madhugiri", "Educational sub-district division in NAS with multiple NAS units per NFHS district"),
         ("Karnataka", "Uttara Kannada Sirsi", "Educational sub-district division in NAS with multiple NAS units per NFHS district"),
         ("Madhya Pradesh", "Niwari", "Carved from Tikamgarh in 2018; surveyed under Tikamgarh in NFHS-5"),
-        ("Maharashtra", "Mumbai II", "NAS administrative sub-division without separate NFHS counterpart"),
+        ("Maharashtra", "Mumbai II", "No confirmed NFHS-5 counterpart; left out pending manual verification."),
         ("Manipur", "Jiribam", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
         ("Manipur", "Kakching", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
         ("Manipur", "Kamjong", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
@@ -576,13 +636,13 @@ elif page == "Method & Limitations":
         ("Manipur", "Noney", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
         ("Manipur", "Pherzawl", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
         ("Manipur", "Tengnoupal", "Newly created district (post-2016 bifurcation); NFHS-5 only surveyed the 9 parent districts"),
-        ("Mizoram", "Saiha", "Spelling and boundary delimitation mismatch with NFHS Siaha"),
+        ("Mizoram", "Saiha", "No confirmed NFHS-5 counterpart; left out pending manual verification."),
         ("Telangana", "Mulugu", "New district established in 2019 without separate NFHS-5 sample"),
         ("Telangana", "Narayanapet", "New district established in 2019 without separate NFHS-5 sample"),
         ("West Bengal", "Alipurduar", "Recent district reorganisations/educational divisions without clean 1:1 match"),
         ("West Bengal", "Jhargram", "Recent district reorganisations/educational divisions without clean 1:1 match"),
         ("West Bengal", "Kalimpong", "Recent district reorganisations/educational divisions without clean 1:1 match"),
-        ("West Bengal", "Purba Bardhaman", "Recent district reorganisations/educational divisions without clean 1:1 match"),
+        ("West Bengal", "Purba Bardhaman", "No confirmed NFHS-5 counterpart; left out pending manual verification."),
         ("West Bengal", "Siliguri", "Recent district reorganisations/educational divisions without clean 1:1 match"),
     ]
 

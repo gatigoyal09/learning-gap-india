@@ -1,4 +1,4 @@
-# The Learning Gap in India: district learning outcomes, NAS 2021 and NFHS-5
+# The Learning Gap in India: District Learning Outcomes and Household Conditions
 
 This study investigates the relationship between district-level student learning outcomes and household socio-economic characteristics across India by reconciling National Achievement Survey (NAS 2021) scores with National Family Health Survey (NFHS-5) district metrics. Fifty-five percent of the total variance in Class 8 district average test scores lies between states, with four NFHS household predictors—maternal schooling, household basic amenities, early marriage, and child stunting—explaining an R² of 0.08 alone in an OLS model and 0.62 when accounting for state fixed effects. Within states, districts with higher proportions of educated mothers score higher on average, though all observed patterns reflect statistical associations rather than causal relationships.
 
